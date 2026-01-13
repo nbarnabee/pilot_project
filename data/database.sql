@@ -78,6 +78,21 @@ CREATE TABLE `field_company_ref` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `field_date_completed`
+--
+
+DROP TABLE IF EXISTS `field_date_completed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `field_date_completed` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` datetime NOT NULL,
+  PRIMARY KEY (`pages_id`),
+  KEY `data` (`data`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `field_email`
 --
 
@@ -140,21 +155,6 @@ CREATE TABLE `field_jobs_ref` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `field_last_renewal`
---
-
-DROP TABLE IF EXISTS `field_last_renewal`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `field_last_renewal` (
-  `pages_id` int(10) unsigned NOT NULL,
-  `data` datetime NOT NULL,
-  PRIMARY KEY (`pages_id`),
-  KEY `data` (`data`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `field_nachname`
 --
 
@@ -194,6 +194,38 @@ DROP TABLE IF EXISTS `field_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `field_permissions` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` int(11) NOT NULL,
+  `sort` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`pages_id`,`sort`),
+  KEY `data` (`data`,`pages_id`,`sort`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `field_pilot_email`
+--
+
+DROP TABLE IF EXISTS `field_pilot_email`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `field_pilot_email` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` varchar(191) NOT NULL DEFAULT '',
+  PRIMARY KEY (`pages_id`),
+  KEY `data_exact` (`data`),
+  FULLTEXT KEY `data` (`data`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `field_pilot_ref`
+--
+
+DROP TABLE IF EXISTS `field_pilot_ref`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `field_pilot_ref` (
   `pages_id` int(10) unsigned NOT NULL,
   `data` int(11) NOT NULL,
   `sort` int(10) unsigned NOT NULL,
@@ -265,6 +297,22 @@ CREATE TABLE `field_title` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `field_training_ref`
+--
+
+DROP TABLE IF EXISTS `field_training_ref`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `field_training_ref` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` int(11) NOT NULL,
+  `sort` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`pages_id`,`sort`),
+  KEY `data` (`data`,`pages_id`,`sort`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `field_validity_period`
 --
 
@@ -307,7 +355,7 @@ CREATE TABLE `fieldgroups` (
   `name` varchar(191) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,7 +391,7 @@ CREATE TABLE `fields` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +409,7 @@ CREATE TABLE `modules` (
   `created` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `class` (`class`)
-) ENGINE=InnoDB AUTO_INCREMENT=549 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1176 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -391,7 +439,7 @@ CREATE TABLE `pages` (
   KEY `created` (`created`),
   KEY `status` (`status`),
   KEY `published` (`published`)
-) ENGINE=InnoDB AUTO_INCREMENT=1022 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1044 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +518,7 @@ CREATE TABLE `templates` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `fieldgroups_id` (`fieldgroups_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -482,7 +530,7 @@ CREATE TABLE `templates` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-13 11:13:52
+-- Dump completed on 2026-01-13 15:29:01
 -- MariaDB dump 10.19  Distrib 10.6.16-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: docker
@@ -515,6 +563,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_birthdate` WRITE;
 /*!40000 ALTER TABLE `field_birthdate` DISABLE KEYS */;
+INSERT INTO `field_birthdate` VALUES (1036,'1965-09-24 00:00:00'),(1033,'1980-03-05 00:00:00'),(1037,'1981-03-02 00:00:00'),(1034,'1983-01-24 00:00:00'),(1035,'1988-06-27 00:00:00');
 /*!40000 ALTER TABLE `field_birthdate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,7 +573,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_company_ref` WRITE;
 /*!40000 ALTER TABLE `field_company_ref` DISABLE KEYS */;
+INSERT INTO `field_company_ref` VALUES (1033,1024,0),(1034,1024,0),(1035,1024,0),(1037,1024,0),(1036,1025,0);
 /*!40000 ALTER TABLE `field_company_ref` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `field_date_completed`
+--
+
+LOCK TABLES `field_date_completed` WRITE;
+/*!40000 ALTER TABLE `field_date_completed` DISABLE KEYS */;
+INSERT INTO `field_date_completed` VALUES (1041,'2024-01-17 00:00:00'),(1043,'2025-08-20 00:00:00'),(1040,'2025-11-11 00:00:00'),(1042,'2025-12-12 00:00:00');
+/*!40000 ALTER TABLE `field_date_completed` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -543,6 +603,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_expires` WRITE;
 /*!40000 ALTER TABLE `field_expires` DISABLE KEYS */;
+INSERT INTO `field_expires` VALUES (1027,0),(1026,1),(1028,1),(1029,1),(1030,1);
 /*!40000 ALTER TABLE `field_expires` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,6 +613,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_expires_month_end` WRITE;
 /*!40000 ALTER TABLE `field_expires_month_end` DISABLE KEYS */;
+INSERT INTO `field_expires_month_end` VALUES (1026,0),(1027,0),(1030,0),(1028,1),(1029,1);
 /*!40000 ALTER TABLE `field_expires_month_end` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -561,16 +623,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_jobs_ref` WRITE;
 /*!40000 ALTER TABLE `field_jobs_ref` DISABLE KEYS */;
+INSERT INTO `field_jobs_ref` VALUES (1027,1019,0),(1028,1019,0),(1029,1019,0),(1030,1019,0),(1035,1019,0),(1026,1020,0),(1029,1020,1),(1030,1020,1),(1036,1020,0),(1037,1020,0),(1027,1021,1),(1028,1021,1),(1029,1021,2),(1030,1021,2),(1033,1021,0),(1037,1021,1),(1028,1022,2),(1029,1022,3),(1034,1022,0),(1029,1023,4),(1030,1023,3),(1034,1023,1),(1036,1023,1);
 /*!40000 ALTER TABLE `field_jobs_ref` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `field_last_renewal`
---
-
-LOCK TABLES `field_last_renewal` WRITE;
-/*!40000 ALTER TABLE `field_last_renewal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `field_last_renewal` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -579,6 +633,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_nachname` WRITE;
 /*!40000 ALTER TABLE `field_nachname` DISABLE KEYS */;
+INSERT INTO `field_nachname` VALUES (1033,'Petrakis'),(1034,'Marti'),(1035,'Kneubühl'),(1036,'von Schaft'),(1037,'Steiner');
 /*!40000 ALTER TABLE `field_nachname` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -603,6 +658,26 @@ INSERT INTO `field_permissions` VALUES (38,32,1),(38,34,2),(38,35,3),(37,36,0),(
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `field_pilot_email`
+--
+
+LOCK TABLES `field_pilot_email` WRITE;
+/*!40000 ALTER TABLE `field_pilot_email` DISABLE KEYS */;
+INSERT INTO `field_pilot_email` VALUES (1037,'felix@helga.ch'),(1036,'hildi@helga.ch'),(1034,'raphael@helga.ch'),(1035,'sandro@helga.ch'),(1033,'stefanos@helga.ch');
+/*!40000 ALTER TABLE `field_pilot_email` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `field_pilot_ref`
+--
+
+LOCK TABLES `field_pilot_ref` WRITE;
+/*!40000 ALTER TABLE `field_pilot_ref` DISABLE KEYS */;
+INSERT INTO `field_pilot_ref` VALUES (1040,1033,0),(1041,1033,0),(1042,1033,0),(1043,1033,0);
+/*!40000 ALTER TABLE `field_pilot_ref` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `field_process`
 --
 
@@ -618,6 +693,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_renewal_period` WRITE;
 /*!40000 ALTER TABLE `field_renewal_period` DISABLE KEYS */;
+INSERT INTO `field_renewal_period` VALUES (1026,1),(1029,1),(1030,1),(1028,12);
 /*!40000 ALTER TABLE `field_renewal_period` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -637,8 +713,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_title` WRITE;
 /*!40000 ALTER TABLE `field_title` DISABLE KEYS */;
-INSERT INTO `field_title` VALUES (1,'Home'),(2,'Admin'),(3,'Pages'),(6,'Add Page'),(7,'Trash'),(8,'Tree'),(9,'Save Sort'),(10,'Edit'),(11,'Templates'),(16,'Fields'),(21,'Modules'),(22,'Setup'),(23,'Login'),(27,'404 Not Found'),(28,'Access'),(29,'Users'),(30,'Roles'),(31,'Permissions'),(32,'Edit pages'),(34,'Delete pages'),(35,'Move pages (change parent)'),(36,'View pages'),(50,'Sort child pages'),(51,'Change templates on pages'),(52,'Administer users'),(53,'User can update profile/password'),(54,'Lock or unlock a page'),(300,'Search'),(301,'Empty Trash'),(302,'Insert Link'),(303,'Insert Image'),(304,'Profile'),(1006,'Use Page Lister'),(1007,'Find'),(1010,'Recent'),(1011,'Can see recently edited pages'),(1012,'Logs'),(1013,'Can view system logs'),(1014,'Can manage system logs'),(1015,'Companies'),(1016,'Trainings'),(1017,'Pilots'),(1018,'Jobs'),(1019,'Pilot'),(1020,'Rettungssanitäter'),(1021,'Flugbegleiter');
+INSERT INTO `field_title` VALUES (1,'Home'),(2,'Admin'),(3,'Pages'),(6,'Add Page'),(7,'Trash'),(8,'Tree'),(9,'Save Sort'),(10,'Edit'),(11,'Templates'),(16,'Fields'),(21,'Modules'),(22,'Setup'),(23,'Login'),(27,'404 Not Found'),(28,'Access'),(29,'Users'),(30,'Roles'),(31,'Permissions'),(32,'Edit pages'),(34,'Delete pages'),(35,'Move pages (change parent)'),(36,'View pages'),(50,'Sort child pages'),(51,'Change templates on pages'),(52,'Administer users'),(53,'User can update profile/password'),(54,'Lock or unlock a page'),(300,'Search'),(301,'Empty Trash'),(302,'Insert Link'),(303,'Insert Image'),(304,'Profile'),(1006,'Use Page Lister'),(1007,'Find'),(1010,'Recent'),(1011,'Can see recently edited pages'),(1012,'Logs'),(1013,'Can view system logs'),(1014,'Can manage system logs'),(1015,'Companies'),(1016,'Trainings'),(1017,'Stefanos Petrakis'),(1018,'Jobs'),(1019,'Pilot'),(1020,'Rettungssanitäter'),(1021,'Flugbegleiter'),(1022,'Bodenpersonal'),(1023,'Administrator'),(1024,'Guggi Luggi Airline'),(1025,'Django Supercopters'),(1026,'Medical'),(1027,'LPC SE'),(1028,'OPC NIT'),(1029,'Dangerous Goods'),(1030,'English Prof. Level 5'),(1031,'stefanos-p'),(1032,'Pilots'),(1033,'Stefanos Petrakis'),(1034,'Raphael Marti'),(1035,'Sandro Kneubühl'),(1036,'Brunhilde von Schaft'),(1037,'Felix Steiner'),(1038,'Training Dates');
 /*!40000 ALTER TABLE `field_title` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `field_training_ref`
+--
+
+LOCK TABLES `field_training_ref` WRITE;
+/*!40000 ALTER TABLE `field_training_ref` DISABLE KEYS */;
+INSERT INTO `field_training_ref` VALUES (1041,1027,0),(1040,1028,0),(1043,1029,0),(1042,1030,0);
+/*!40000 ALTER TABLE `field_training_ref` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -647,6 +733,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_validity_period` WRITE;
 /*!40000 ALTER TABLE `field_validity_period` DISABLE KEYS */;
+INSERT INTO `field_validity_period` VALUES (1030,1),(1026,5),(1028,5),(1029,5);
 /*!40000 ALTER TABLE `field_validity_period` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -656,6 +743,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `field_vorname` WRITE;
 /*!40000 ALTER TABLE `field_vorname` DISABLE KEYS */;
+INSERT INTO `field_vorname` VALUES (1033,'Stefanos'),(1034,'Raphael'),(1035,'Sandro'),(1036,'Brunhilde'),(1037,'Felix');
 /*!40000 ALTER TABLE `field_vorname` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -665,7 +753,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `fieldgroups` WRITE;
 /*!40000 ALTER TABLE `fieldgroups` DISABLE KEYS */;
-INSERT INTO `fieldgroups` VALUES (2,'admin'),(83,'basic-page'),(97,'companies'),(98,'company'),(1,'home'),(102,'job'),(101,'jobs'),(5,'permission'),(104,'pilot'),(103,'pilots'),(4,'role'),(100,'training'),(99,'trainings'),(3,'user');
+INSERT INTO `fieldgroups` VALUES (2,'admin'),(83,'basic-page'),(97,'companies'),(98,'company'),(1,'home'),(102,'job'),(101,'jobs'),(5,'permission'),(104,'pilot'),(103,'pilots'),(4,'role'),(100,'training'),(99,'trainings'),(106,'training_date'),(105,'training_dates'),(3,'user');
 /*!40000 ALTER TABLE `fieldgroups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -675,7 +763,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `fieldgroups_fields` WRITE;
 /*!40000 ALTER TABLE `fieldgroups_fields` DISABLE KEYS */;
-INSERT INTO `fieldgroups_fields` VALUES (1,1,0,NULL),(2,1,0,NULL),(2,2,1,NULL),(3,3,0,NULL),(3,4,2,NULL),(3,92,1,NULL),(3,97,3,NULL),(4,5,0,NULL),(5,1,0,NULL),(83,1,0,NULL),(97,1,0,NULL),(98,1,0,NULL),(99,1,0,NULL),(100,1,0,NULL),(100,99,1,'{\"label\":\"Related Jobs\"}'),(100,104,2,NULL),(100,105,4,NULL),(100,106,3,NULL),(100,107,5,NULL),(101,1,0,NULL),(102,1,0,NULL),(103,1,0,NULL),(104,1,0,NULL),(104,98,4,NULL),(104,99,5,NULL),(104,100,3,'{\"required\":1}'),(104,101,1,'{\"required\":1}'),(104,102,2,'{\"required\":1}');
+INSERT INTO `fieldgroups_fields` VALUES (1,1,0,NULL),(2,1,0,NULL),(2,2,1,NULL),(3,3,0,NULL),(3,4,2,NULL),(3,92,1,NULL),(3,97,3,NULL),(4,5,0,NULL),(5,1,0,NULL),(83,1,0,NULL),(97,1,0,NULL),(98,1,0,NULL),(99,1,0,NULL),(100,1,0,NULL),(100,99,5,'{\"label\":\"Related Jobs\"}'),(100,104,1,NULL),(100,105,3,NULL),(100,106,2,NULL),(100,107,4,NULL),(101,1,0,NULL),(102,1,0,NULL),(103,1,0,NULL),(104,1,0,NULL),(104,98,5,'{\"columnWidth\":40}'),(104,99,6,'{\"columnWidth\":60}'),(104,100,3,'{\"columnWidth\":25,\"required\":1}'),(104,101,1,'{\"columnWidth\":25,\"required\":1}'),(104,102,2,'{\"columnWidth\":25,\"required\":1}'),(104,108,4,'{\"columnWidth\":25}'),(105,1,0,NULL),(106,1,0,'{\"collapsed\":\"4\"}'),(106,109,1,'{\"columnWidth\":33,\"required\":1}'),(106,110,2,'{\"columnWidth\":33,\"required\":1}'),(106,111,3,'{\"columnWidth\":33,\"required\":1}');
 /*!40000 ALTER TABLE `fieldgroups_fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -685,7 +773,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `fields` WRITE;
 /*!40000 ALTER TABLE `fields` DISABLE KEYS */;
-INSERT INTO `fields` VALUES (1,'FieldtypePageTitle','title',13,'Title','{\"required\":1,\"textformatters\":[\"TextformatterEntities\"],\"size\":0,\"maxlength\":255}'),(2,'FieldtypeModule','process',25,'Process','{\"description\":\"The process that is executed on this page. Since this is mostly used by ProcessWire internally, it is recommended that you don\'t change the value of this unless adding your own pages in the admin.\",\"collapsed\":1,\"required\":1,\"moduleTypes\":[\"Process\"],\"permanent\":1}'),(3,'FieldtypePassword','pass',24,'Set Password','{\"collapsed\":1,\"size\":50,\"maxlength\":128}'),(4,'FieldtypePage','roles',24,'Roles','{\"derefAsPage\":0,\"parent_id\":30,\"labelFieldName\":\"name\",\"inputfield\":\"InputfieldCheckboxes\",\"description\":\"User will inherit the permissions assigned to each role. You may assign multiple roles to a user. When accessing a page, the user will only inherit permissions from the roles that are also assigned to the page\'s template.\"}'),(5,'FieldtypePage','permissions',24,'Permissions','{\"derefAsPage\":0,\"parent_id\":31,\"labelFieldName\":\"title\",\"inputfield\":\"InputfieldCheckboxes\"}'),(92,'FieldtypeEmail','email',9,'E-Mail Address','{\"size\":70,\"maxlength\":255}'),(97,'FieldtypeModule','admin_theme',8,'Admin Theme','{\"moduleTypes\":[\"AdminTheme\"],\"labelField\":\"title\",\"inputfieldClass\":\"InputfieldRadios\"}'),(98,'FieldtypePage','company_ref',0,'Company','{\"derefAsPage\":2,\"inputfield\":\"InputfieldSelect\",\"distinctAutojoin\":true,\"parent_id\":0,\"template_id\":44,\"labelFieldName\":\"title\",\"collapsed\":0,\"required\":1}'),(99,'FieldtypePage','jobs_ref',0,'Jobs','{\"derefAsPage\":0,\"inputfield\":\"InputfieldAsmSelect\",\"distinctAutojoin\":true,\"usePageEdit\":0,\"parent_id\":0,\"template_id\":48,\"labelFieldName\":\"title\",\"collapsed\":0,\"required\":1}'),(100,'FieldtypeDatetime','birthdate',0,'Birthdate','{\"dateOutputFormat\":\"j.n.Y\",\"dateInputFormat\":\"Y-m-d\",\"inputType\":\"html\",\"htmlType\":\"date\",\"collapsed\":0,\"dateSelectFormat\":\"yMd\",\"yearFrom\":1926,\"yearTo\":2046,\"yearLock\":0,\"datepicker\":0,\"timeInputSelect\":0,\"size\":25,\"showAnim\":\"fade\",\"numberOfMonths\":1,\"changeMonth\":1,\"changeYear\":1,\"showButtonPanel\":0,\"showMonthAfterYear\":0,\"showOtherMonths\":0}'),(101,'FieldtypeText','vorname',0,'Vorname','{\"textformatters\":[\"TextformatterEntities\"],\"collapsed\":0,\"minlength\":0,\"maxlength\":2048,\"showCount\":0,\"size\":0}'),(102,'FieldtypeText','nachname',0,'Nachname','{\"textformatters\":[\"TextformatterEntities\"],\"collapsed\":0,\"minlength\":0,\"maxlength\":2048,\"showCount\":0,\"size\":0}'),(103,'FieldtypeDatetime','last_renewal',0,'Last Renewal','{\"dateOutputFormat\":\"j.n.Y\",\"dateInputFormat\":\"Y-m-d\",\"inputType\":\"html\",\"htmlType\":\"date\",\"collapsed\":0,\"dateSelectFormat\":\"yMd\",\"yearFrom\":1926,\"yearTo\":2046,\"yearLock\":0,\"datepicker\":0,\"timeInputSelect\":0,\"size\":25,\"showAnim\":\"fade\",\"numberOfMonths\":1,\"changeMonth\":1,\"changeYear\":1,\"showButtonPanel\":0,\"showMonthAfterYear\":0,\"showOtherMonths\":0}'),(104,'FieldtypeToggle','expires',0,'Expires?','{\"formatType\":0,\"labelType\":0,\"inputfieldClass\":0,\"useVertical\":0,\"yesLabel\":\"\\u2713\",\"noLabel\":\"\\u2717\",\"otherLabel\":\"?\",\"defaultOption\":\"yes\",\"collapsed\":0,\"required\":1}'),(105,'FieldtypeToggle','expires_month_end',0,'Expires end-of-month','{\"formatType\":0,\"labelType\":0,\"inputfieldClass\":0,\"useVertical\":0,\"yesLabel\":\"\\u2713\",\"noLabel\":\"\\u2717\",\"otherLabel\":\"?\",\"defaultOption\":\"no\",\"collapsed\":0,\"required\":1}'),(106,'FieldtypeInteger','validity_period',0,'Validity period','{\"description\":\"The number of months for which the training is valid (e.g., before it needs renewal)\",\"zeroNotEmpty\":0,\"collapsed\":0,\"inputType\":\"text\",\"size\":10}'),(107,'FieldtypeInteger','renewal_period',0,'Renewal period','{\"description\":\"The number of months prior to expiration during which the training can be renewed.  Blank or \\\"0\\\" indicate no renewal period.\",\"zeroNotEmpty\":0,\"collapsed\":0,\"inputType\":\"text\",\"size\":10}');
+INSERT INTO `fields` VALUES (1,'FieldtypePageTitle','title',13,'Title','{\"required\":1,\"textformatters\":[\"TextformatterEntities\"],\"size\":0,\"maxlength\":255}'),(2,'FieldtypeModule','process',25,'Process','{\"description\":\"The process that is executed on this page. Since this is mostly used by ProcessWire internally, it is recommended that you don\'t change the value of this unless adding your own pages in the admin.\",\"collapsed\":1,\"required\":1,\"moduleTypes\":[\"Process\"],\"permanent\":1}'),(3,'FieldtypePassword','pass',24,'Set Password','{\"collapsed\":1,\"size\":50,\"maxlength\":128}'),(4,'FieldtypePage','roles',24,'Roles','{\"derefAsPage\":0,\"parent_id\":30,\"labelFieldName\":\"name\",\"inputfield\":\"InputfieldCheckboxes\",\"description\":\"User will inherit the permissions assigned to each role. You may assign multiple roles to a user. When accessing a page, the user will only inherit permissions from the roles that are also assigned to the page\'s template.\"}'),(5,'FieldtypePage','permissions',24,'Permissions','{\"derefAsPage\":0,\"parent_id\":31,\"labelFieldName\":\"title\",\"inputfield\":\"InputfieldCheckboxes\"}'),(92,'FieldtypeEmail','email',9,'E-Mail Address','{\"size\":70,\"maxlength\":255}'),(97,'FieldtypeModule','admin_theme',8,'Admin Theme','{\"moduleTypes\":[\"AdminTheme\"],\"labelField\":\"title\",\"inputfieldClass\":\"InputfieldRadios\"}'),(98,'FieldtypePage','company_ref',0,'Company','{\"derefAsPage\":2,\"inputfield\":\"InputfieldSelect\",\"distinctAutojoin\":true,\"parent_id\":0,\"template_id\":44,\"labelFieldName\":\".\",\"collapsed\":0,\"required\":1,\"labelFieldFormat\":\"{id} - {title}\"}'),(99,'FieldtypePage','jobs_ref',0,'Jobs','{\"derefAsPage\":0,\"inputfield\":\"InputfieldAsmSelect\",\"distinctAutojoin\":true,\"usePageEdit\":0,\"parent_id\":0,\"template_id\":48,\"labelFieldName\":\".\",\"collapsed\":0,\"required\":1,\"labelFieldFormat\":\"{id} - {title}\"}'),(100,'FieldtypeDatetime','birthdate',0,'Birthdate','{\"dateOutputFormat\":\"j.n.Y\",\"dateInputFormat\":\"Y-m-d\",\"inputType\":\"html\",\"htmlType\":\"date\",\"collapsed\":0,\"dateSelectFormat\":\"yMd\",\"yearFrom\":1926,\"yearTo\":2046,\"yearLock\":0,\"datepicker\":0,\"timeInputSelect\":0,\"size\":25,\"showAnim\":\"fade\",\"numberOfMonths\":1,\"changeMonth\":1,\"changeYear\":1,\"showButtonPanel\":0,\"showMonthAfterYear\":0,\"showOtherMonths\":0}'),(101,'FieldtypeText','vorname',0,'Vorname','{\"textformatters\":[\"TextformatterEntities\"],\"collapsed\":0,\"minlength\":0,\"maxlength\":2048,\"showCount\":0,\"size\":0}'),(102,'FieldtypeText','nachname',0,'Nachname','{\"textformatters\":[\"TextformatterEntities\"],\"collapsed\":0,\"minlength\":0,\"maxlength\":2048,\"showCount\":0,\"size\":0}'),(104,'FieldtypeToggle','expires',0,'Expires?','{\"formatType\":0,\"labelType\":0,\"inputfieldClass\":0,\"useVertical\":0,\"yesLabel\":\"\\u2713\",\"noLabel\":\"\\u2717\",\"otherLabel\":\"?\",\"defaultOption\":\"yes\",\"collapsed\":0,\"required\":1}'),(105,'FieldtypeToggle','expires_month_end',0,'Expires end-of-month','{\"formatType\":0,\"labelType\":0,\"inputfieldClass\":0,\"useVertical\":0,\"yesLabel\":\"\\u2713\",\"noLabel\":\"\\u2717\",\"otherLabel\":\"?\",\"defaultOption\":\"no\",\"collapsed\":0,\"required\":1}'),(106,'FieldtypeInteger','validity_period',0,'Validity period','{\"description\":\"The number of months for which the training is valid (e.g., before it needs renewal)\",\"zeroNotEmpty\":0,\"collapsed\":0,\"inputType\":\"text\",\"size\":10}'),(107,'FieldtypeInteger','renewal_period',0,'Renewal period','{\"description\":\"The number of months prior to expiration during which the training can be renewed.  Blank or \\\"0\\\" indicate no renewal period.\",\"zeroNotEmpty\":0,\"collapsed\":0,\"inputType\":\"text\",\"size\":10}'),(108,'FieldtypeEmail','pilot_email',0,'Email','{\"textformatters\":[\"TextformatterEntities\"],\"collapsed\":0,\"minlength\":0,\"maxlength\":250,\"showCount\":0,\"size\":0,\"allowIDN\":0}'),(109,'FieldtypePage','pilot_ref',0,'Pilot','{\"derefAsPage\":2,\"inputfield\":\"InputfieldSelect\",\"distinctAutojoin\":true,\"parent_id\":0,\"template_id\":50,\"labelFieldName\":\".\",\"labelFieldFormat\":\"{id} - {title}\",\"collapsed\":0}'),(110,'FieldtypePage','training_ref',0,'Training','{\"derefAsPage\":2,\"inputfield\":\"InputfieldSelect\",\"distinctAutojoin\":true,\"parent_id\":0,\"template_id\":46,\"labelFieldName\":\".\",\"labelFieldFormat\":\"{id} - {title}\",\"collapsed\":0}'),(111,'FieldtypeDatetime','date_completed',0,'Date','{\"dateInputFormat\":\"Y-m-d\",\"inputType\":\"html\",\"htmlType\":\"date\",\"collapsed\":0,\"dateSelectFormat\":\"yMd\",\"yearFrom\":1926,\"yearTo\":2046,\"yearLock\":0,\"datepicker\":0,\"timeInputSelect\":0,\"size\":25,\"showAnim\":\"fade\",\"numberOfMonths\":1,\"changeMonth\":1,\"changeYear\":1,\"showButtonPanel\":0,\"showMonthAfterYear\":0,\"showOtherMonths\":0,\"dateOutputFormat\":\"j.n.Y\"}');
 /*!40000 ALTER TABLE `fields` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -705,7 +793,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,0,1,'home',9,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(2,1,2,'backend',1035,'2026-01-13 10:42:15',40,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',5),(3,2,2,'page',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(6,3,2,'add',21,'2026-01-13 10:42:27',40,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(7,1,2,'trash',1039,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(8,3,2,'list',21,'2026-01-13 10:42:32',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(9,3,2,'sort',1047,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3),(10,3,2,'edit',1045,'2026-01-13 10:42:32',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',4),(11,22,2,'template',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(16,22,2,'field',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(21,2,2,'module',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(22,2,2,'setup',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(23,2,2,'login',1035,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',4),(27,1,29,'http404',1035,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3,'2026-01-13 10:41:43',4),(28,2,2,'access',13,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3),(29,28,2,'users',29,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(30,28,2,'roles',29,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(31,28,2,'permissions',29,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(32,31,5,'page-edit',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(34,31,5,'page-delete',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3),(35,31,5,'page-move',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',4),(36,31,5,'page-view',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(37,30,4,'guest',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(38,30,4,'superuser',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(40,29,3,'guest',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(41,29,3,'admin',1,'2026-01-13 10:42:15',40,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(50,31,5,'page-sort',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',5),(51,31,5,'page-template',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(52,31,5,'user-admin',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',10),(53,31,5,'profile-edit',1,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',13),(54,31,5,'page-lock',1,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',8),(300,3,2,'search',1045,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(301,3,2,'trash',1047,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(302,3,2,'link',1041,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',7),(303,3,2,'image',1041,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',8),(304,2,2,'profile',1025,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',5),(1006,31,5,'page-lister',1,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',9),(1007,3,2,'lister',1,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',9),(1010,3,2,'recent-pages',1,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',10),(1011,31,5,'page-edit-recent',1,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',10),(1012,22,2,'logs',1,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',2),(1013,31,5,'logs-view',1,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',11),(1014,31,5,'logs-edit',1,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',12),(1015,1,43,'companies',1,'2026-01-13 11:11:38',41,'2026-01-13 11:11:38',41,'2026-01-13 11:11:38',3),(1016,1,45,'trainings',1,'2026-01-13 11:12:04',41,'2026-01-13 11:12:04',41,'2026-01-13 11:12:04',4),(1017,1,49,'pilots',1,'2026-01-13 11:12:18',41,'2026-01-13 11:12:18',41,'2026-01-13 11:12:18',5),(1018,1,47,'jobs',1,'2026-01-13 11:12:30',41,'2026-01-13 11:12:30',41,'2026-01-13 11:12:30',6),(1019,1018,48,'pilot',1,'2026-01-13 11:12:48',41,'2026-01-13 11:12:48',41,'2026-01-13 11:12:48',0),(1020,1018,48,'rettungssanitaeter',1,'2026-01-13 11:13:07',41,'2026-01-13 11:13:07',41,'2026-01-13 11:13:07',1),(1021,1018,48,'flugbegleiter',1,'2026-01-13 11:13:16',41,'2026-01-13 11:13:16',41,'2026-01-13 11:13:16',2);
+INSERT INTO `pages` VALUES (1,0,1,'home',9,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(2,1,2,'backend',1035,'2026-01-13 10:42:15',40,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',5),(3,2,2,'page',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(6,3,2,'add',21,'2026-01-13 10:42:27',40,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(7,1,2,'trash',1039,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(8,3,2,'list',21,'2026-01-13 10:42:32',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(9,3,2,'sort',1047,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3),(10,3,2,'edit',1045,'2026-01-13 10:42:32',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',4),(11,22,2,'template',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(16,22,2,'field',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(21,2,2,'module',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(22,2,2,'setup',21,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(23,2,2,'login',1035,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',4),(27,1,29,'http404',1035,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3,'2026-01-13 10:41:43',4),(28,2,2,'access',13,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3),(29,28,2,'users',29,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(30,28,2,'roles',29,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(31,28,2,'permissions',29,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(32,31,5,'page-edit',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',2),(34,31,5,'page-delete',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',3),(35,31,5,'page-move',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',4),(36,31,5,'page-view',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(37,30,4,'guest',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(38,30,4,'superuser',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(40,29,3,'guest',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',1),(41,29,3,'admin',1,'2026-01-13 10:42:15',40,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',0),(50,31,5,'page-sort',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',5),(51,31,5,'page-template',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(52,31,5,'user-admin',25,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',10),(53,31,5,'profile-edit',1,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',13),(54,31,5,'page-lock',1,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',8),(300,3,2,'search',1045,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(301,3,2,'trash',1047,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',6),(302,3,2,'link',1041,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',7),(303,3,2,'image',1041,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',8),(304,2,2,'profile',1025,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',41,'2026-01-13 10:41:43',5),(1006,31,5,'page-lister',1,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',9),(1007,3,2,'lister',1,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',40,'2026-01-13 10:41:43',9),(1010,3,2,'recent-pages',1,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',10),(1011,31,5,'page-edit-recent',1,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',40,'2026-01-13 10:42:04',10),(1012,22,2,'logs',1,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',2),(1013,31,5,'logs-view',1,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',11),(1014,31,5,'logs-edit',1,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',40,'2026-01-13 10:42:15',12),(1015,1,43,'companies',1,'2026-01-13 11:11:38',41,'2026-01-13 11:11:38',41,'2026-01-13 11:11:38',3),(1016,1,45,'trainings',1,'2026-01-13 11:12:04',41,'2026-01-13 11:12:04',41,'2026-01-13 11:12:04',4),(1017,7,49,'1017.1.5_pilots',8193,'2026-01-13 12:30:01',41,'2026-01-13 11:12:18',41,'2026-01-13 11:12:18',5),(1018,1,47,'jobs',1,'2026-01-13 11:12:30',41,'2026-01-13 11:12:30',41,'2026-01-13 11:12:30',6),(1019,1018,48,'pilot',1,'2026-01-13 11:12:48',41,'2026-01-13 11:12:48',41,'2026-01-13 11:12:48',0),(1020,1018,48,'rettungssanitaeter',1,'2026-01-13 11:13:07',41,'2026-01-13 11:13:07',41,'2026-01-13 11:13:07',1),(1021,1018,48,'flugbegleiter',1,'2026-01-13 11:13:16',41,'2026-01-13 11:13:16',41,'2026-01-13 11:13:16',2),(1022,1018,48,'bodenpersonal',1,'2026-01-13 11:56:25',41,'2026-01-13 11:56:25',41,'2026-01-13 11:56:25',3),(1023,1018,48,'administrator',1,'2026-01-13 11:56:32',41,'2026-01-13 11:56:32',41,'2026-01-13 11:56:32',4),(1024,1015,44,'guggi-luggi-airline',1,'2026-01-13 11:57:00',41,'2026-01-13 11:57:00',41,'2026-01-13 11:57:00',0),(1025,1015,44,'django-supercopters',1,'2026-01-13 11:57:11',41,'2026-01-13 11:57:11',41,'2026-01-13 11:57:11',1),(1026,1016,46,'medical',1,'2026-01-13 12:02:34',41,'2026-01-13 11:57:36',41,'2026-01-13 11:58:35',0),(1027,1016,46,'lpc-se',1,'2026-01-13 12:03:00',41,'2026-01-13 12:02:40',41,'2026-01-13 12:03:00',1),(1028,1016,46,'opc-nit',1,'2026-01-13 12:05:29',41,'2026-01-13 12:03:22',41,'2026-01-13 12:05:29',2),(1029,1016,46,'dangerous-goods',1,'2026-01-13 12:06:11',41,'2026-01-13 12:05:36',41,'2026-01-13 12:06:11',3),(1030,1016,46,'english-prof-level-5',1,'2026-01-13 12:17:32',41,'2026-01-13 12:06:22',41,'2026-01-13 12:06:44',4),(1031,7,49,'1031.1017._stefanos-p',10241,'2026-01-13 12:29:23',41,'2026-01-13 12:28:03',41,NULL,0),(1032,1,49,'pilots',1,'2026-01-13 12:30:14',41,'2026-01-13 12:30:14',41,'2026-01-13 12:30:14',6),(1033,1032,50,'stefanos-petrakis',1,'2026-01-13 12:32:53',41,'2026-01-13 12:32:09',41,'2026-01-13 12:32:53',0),(1034,1032,50,'raphael-marti',1,'2026-01-13 12:33:55',41,'2026-01-13 12:33:00',41,'2026-01-13 12:33:50',1),(1035,1032,50,'sandro-kneubuehl',1,'2026-01-13 12:34:57',41,'2026-01-13 12:34:13',41,'2026-01-13 12:34:57',2),(1036,1032,50,'brunhilde-von-schaft',1,'2026-01-13 12:36:03',41,'2026-01-13 12:35:10',41,'2026-01-13 12:36:03',3),(1037,1032,50,'felix-steiner',1,'2026-01-13 12:36:50',41,'2026-01-13 12:36:09',41,'2026-01-13 12:36:50',4),(1038,1,51,'training-dates',1,'2026-01-13 12:58:53',41,'2026-01-13 12:57:14',41,'2026-01-13 12:57:14',7),(1039,7,52,'1039.1038._untitled-0260113125720',10753,'2026-01-13 12:58:51',41,'2026-01-13 12:57:20',41,NULL,0),(1040,1038,52,'untitled-0260113134051',1,'2026-01-13 13:40:51',41,'2026-01-13 13:11:44',41,'2026-01-13 13:13:45',0),(1041,1038,52,'untitled-0260113142548',1,'2026-01-13 14:25:48',41,'2026-01-13 14:25:25',41,'2026-01-13 14:25:48',1),(1042,1038,52,'untitled-0260113143312',1,'2026-01-13 14:33:12',41,'2026-01-13 14:29:46',41,'2026-01-13 14:30:07',2),(1043,1038,52,'untitled-0260113145130',1,'2026-01-13 14:51:30',41,'2026-01-13 14:48:47',41,'2026-01-13 14:49:13',3);
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -715,7 +803,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `pages_access` WRITE;
 /*!40000 ALTER TABLE `pages_access` DISABLE KEYS */;
-INSERT INTO `pages_access` VALUES (32,2,'2026-01-13 10:41:43'),(34,2,'2026-01-13 10:41:43'),(35,2,'2026-01-13 10:41:43'),(36,2,'2026-01-13 10:41:43'),(37,2,'2026-01-13 10:41:43'),(38,2,'2026-01-13 10:41:43'),(50,2,'2026-01-13 10:41:43'),(51,2,'2026-01-13 10:41:43'),(52,2,'2026-01-13 10:41:43'),(53,2,'2026-01-13 10:41:43'),(54,2,'2026-01-13 10:41:43'),(1006,2,'2026-01-13 10:41:43'),(1011,2,'2026-01-13 10:42:04'),(1013,2,'2026-01-13 10:42:15'),(1014,2,'2026-01-13 10:42:15'),(1015,1,'2026-01-13 11:11:38'),(1016,1,'2026-01-13 11:12:04'),(1017,1,'2026-01-13 11:12:18'),(1018,1,'2026-01-13 11:12:30'),(1019,1,'2026-01-13 11:12:48'),(1020,1,'2026-01-13 11:13:07'),(1021,1,'2026-01-13 11:13:16');
+INSERT INTO `pages_access` VALUES (32,2,'2026-01-13 10:41:43'),(34,2,'2026-01-13 10:41:43'),(35,2,'2026-01-13 10:41:43'),(36,2,'2026-01-13 10:41:43'),(37,2,'2026-01-13 10:41:43'),(38,2,'2026-01-13 10:41:43'),(50,2,'2026-01-13 10:41:43'),(51,2,'2026-01-13 10:41:43'),(52,2,'2026-01-13 10:41:43'),(53,2,'2026-01-13 10:41:43'),(54,2,'2026-01-13 10:41:43'),(1006,2,'2026-01-13 10:41:43'),(1011,2,'2026-01-13 10:42:04'),(1013,2,'2026-01-13 10:42:15'),(1014,2,'2026-01-13 10:42:15'),(1015,1,'2026-01-13 11:11:38'),(1016,1,'2026-01-13 11:12:04'),(1017,2,'2026-01-13 12:30:01'),(1018,1,'2026-01-13 11:12:30'),(1019,1,'2026-01-13 11:12:48'),(1020,1,'2026-01-13 11:13:07'),(1021,1,'2026-01-13 11:13:16'),(1022,1,'2026-01-13 11:56:25'),(1023,1,'2026-01-13 11:56:32'),(1024,1,'2026-01-13 11:57:00'),(1025,1,'2026-01-13 11:57:11'),(1026,1,'2026-01-13 11:57:36'),(1027,1,'2026-01-13 12:02:40'),(1028,1,'2026-01-13 12:03:22'),(1029,1,'2026-01-13 12:05:36'),(1030,1,'2026-01-13 12:06:22'),(1031,2,'2026-01-13 12:29:23'),(1032,1,'2026-01-13 12:30:14'),(1033,1,'2026-01-13 12:32:09'),(1034,1,'2026-01-13 12:33:00'),(1035,1,'2026-01-13 12:34:13'),(1036,1,'2026-01-13 12:35:10'),(1037,1,'2026-01-13 12:36:09'),(1038,1,'2026-01-13 12:57:14'),(1039,2,'2026-01-13 12:58:51'),(1040,1,'2026-01-13 13:11:44'),(1041,1,'2026-01-13 14:25:25'),(1042,1,'2026-01-13 14:29:46'),(1043,1,'2026-01-13 14:48:47');
 /*!40000 ALTER TABLE `pages_access` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -725,7 +813,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `pages_parents` WRITE;
 /*!40000 ALTER TABLE `pages_parents` DISABLE KEYS */;
-INSERT INTO `pages_parents` VALUES (2,1),(3,1),(3,2),(7,1),(22,1),(22,2),(28,1),(28,2),(29,1),(29,2),(29,28),(30,1),(30,2),(30,28),(31,1),(31,2),(31,28);
+INSERT INTO `pages_parents` VALUES (2,1),(3,1),(3,2),(7,1),(22,1),(22,2),(28,1),(28,2),(29,1),(29,2),(29,28),(30,1),(30,2),(30,28),(31,1),(31,2),(31,28),(1017,7),(1031,7),(1039,7);
 /*!40000 ALTER TABLE `pages_parents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -744,7 +832,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `session_login_throttle` WRITE;
 /*!40000 ALTER TABLE `session_login_throttle` DISABLE KEYS */;
-INSERT INTO `session_login_throttle` VALUES ('admin',1,1768300951);
+INSERT INTO `session_login_throttle` VALUES ('admin',1,1768305369);
 /*!40000 ALTER TABLE `session_login_throttle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -754,7 +842,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `templates` WRITE;
 /*!40000 ALTER TABLE `templates` DISABLE KEYS */;
-INSERT INTO `templates` VALUES (1,'home',1,0,0,'{\"useRoles\":1,\"noParents\":1,\"slashUrls\":1,\"compile\":3,\"modified\":1768300663,\"ns\":\"ProcessWire\",\"_lazy\":1,\"roles\":[37]}'),(2,'admin',2,8,0,'{\"useRoles\":1,\"parentTemplates\":[2],\"allowPageNum\":1,\"redirectLogin\":23,\"slashUrls\":1,\"noGlobal\":1,\"compile\":3,\"modified\":1768300663,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(3,'user',3,8,0,'{\"useRoles\":1,\"noChildren\":1,\"parentTemplates\":[2],\"slashUrls\":1,\"pageClass\":\"User\",\"noGlobal\":1,\"noMove\":1,\"noTrash\":1,\"noSettings\":1,\"noChangeTemplate\":1,\"nameContentTab\":1}'),(4,'role',4,8,0,'{\"noChildren\":1,\"parentTemplates\":[2],\"slashUrls\":1,\"pageClass\":\"Role\",\"noGlobal\":1,\"noMove\":1,\"noTrash\":1,\"noSettings\":1,\"noChangeTemplate\":1,\"nameContentTab\":1}'),(5,'permission',5,8,0,'{\"noChildren\":1,\"parentTemplates\":[2],\"slashUrls\":1,\"guestSearchable\":1,\"pageClass\":\"Permission\",\"noGlobal\":1,\"noMove\":1,\"noTrash\":1,\"noSettings\":1,\"noChangeTemplate\":1,\"nameContentTab\":1}'),(29,'basic-page',83,0,0,'{\"slashUrls\":1,\"compile\":3,\"modified\":1768300663,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(43,'companies',97,0,0,'{\"noParents\":-1,\"childTemplates\":[44],\"slashUrls\":1,\"compile\":0,\"modified\":1768301272,\"_lazy\":1}'),(44,'company',98,0,0,'{\"slashUrls\":1,\"pageLabelField\":\"fa-building title\",\"compile\":0,\"label\":\"Company\",\"modified\":1768301227,\"_lazy\":1}'),(45,'trainings',99,0,0,'{\"noParents\":-1,\"childTemplates\":[46],\"slashUrls\":1,\"compile\":0,\"modified\":1768301304,\"_lazy\":1}'),(46,'training',100,0,0,'{\"slashUrls\":1,\"pageLabelField\":\"fa-trophy title\",\"compile\":0,\"label\":\"Training\",\"modified\":1768302456,\"_lazy\":1}'),(47,'jobs',101,0,0,'{\"noParents\":-1,\"childTemplates\":[48],\"slashUrls\":1,\"compile\":0,\"modified\":1768301290,\"_lazy\":1}'),(48,'job',102,0,0,'{\"slashUrls\":1,\"pageLabelField\":\"fa-briefcase title\",\"compile\":0,\"label\":\"Job\",\"modified\":1768301185,\"_lazy\":1}'),(49,'pilots',103,0,0,'{\"slashUrls\":1,\"compile\":3,\"modified\":1768301320}'),(50,'pilot',104,0,0,'{\"slashUrls\":1,\"pageLabelField\":\"fa-user-o title\",\"compile\":0,\"label\":\"Pilot\",\"modified\":1768301768,\"_lazy\":1}');
+INSERT INTO `templates` VALUES (1,'home',1,0,0,'{\"useRoles\":1,\"noParents\":1,\"slashUrls\":1,\"compile\":3,\"modified\":1768300663,\"ns\":\"ProcessWire\",\"_lazy\":1,\"roles\":[37]}'),(2,'admin',2,8,0,'{\"useRoles\":1,\"parentTemplates\":[2],\"allowPageNum\":1,\"redirectLogin\":23,\"slashUrls\":1,\"noGlobal\":1,\"compile\":3,\"modified\":1768300663,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(3,'user',3,8,0,'{\"useRoles\":1,\"noChildren\":1,\"parentTemplates\":[2],\"slashUrls\":1,\"pageClass\":\"User\",\"noGlobal\":1,\"noMove\":1,\"noTrash\":1,\"noSettings\":1,\"noChangeTemplate\":1,\"nameContentTab\":1}'),(4,'role',4,8,0,'{\"noChildren\":1,\"parentTemplates\":[2],\"slashUrls\":1,\"pageClass\":\"Role\",\"noGlobal\":1,\"noMove\":1,\"noTrash\":1,\"noSettings\":1,\"noChangeTemplate\":1,\"nameContentTab\":1}'),(5,'permission',5,8,0,'{\"noChildren\":1,\"parentTemplates\":[2],\"slashUrls\":1,\"guestSearchable\":1,\"pageClass\":\"Permission\",\"noGlobal\":1,\"noMove\":1,\"noTrash\":1,\"noSettings\":1,\"noChangeTemplate\":1,\"nameContentTab\":1}'),(29,'basic-page',83,0,0,'{\"slashUrls\":1,\"compile\":3,\"modified\":1768300663,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(43,'companies',97,0,0,'{\"noParents\":-1,\"childTemplates\":[44],\"slashUrls\":1,\"compile\":0,\"modified\":1768310254,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(44,'company',98,0,0,'{\"noChildren\":1,\"parentTemplates\":[43],\"slashUrls\":1,\"pageLabelField\":\"fa-building title\",\"compile\":0,\"label\":\"Company\",\"modified\":1768316648,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(45,'trainings',99,0,0,'{\"noParents\":-1,\"childTemplates\":[46],\"slashUrls\":1,\"compile\":0,\"modified\":1768314454,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(46,'training',100,0,0,'{\"noChildren\":1,\"parentTemplates\":[45],\"slashUrls\":1,\"pageLabelField\":\"fa-trophy title\",\"compile\":0,\"label\":\"Training\",\"modified\":1768316945,\"_lazy\":1}'),(47,'jobs',101,0,0,'{\"noParents\":-1,\"childTemplates\":[48],\"slashUrls\":1,\"compile\":0,\"modified\":1768301290,\"_lazy\":1}'),(48,'job',102,0,0,'{\"noChildren\":1,\"parentTemplates\":[47],\"slashUrls\":1,\"pageLabelField\":\"fa-briefcase title\",\"compile\":0,\"label\":\"Job\",\"modified\":1768307466,\"_lazy\":1}'),(49,'pilots',103,0,0,'{\"noParents\":1,\"childTemplates\":[50],\"slashUrls\":1,\"compile\":0,\"modified\":1768310823,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(50,'pilot',104,0,0,'{\"noChildren\":1,\"parentTemplates\":[49],\"slashUrls\":1,\"pageLabelField\":\"fa-user-o title\",\"compile\":0,\"label\":\"Pilot\",\"modified\":1768316539,\"ns\":\"ProcessWire\",\"_lazy\":1}'),(51,'training_dates',105,0,0,'{\"noParents\":-1,\"childTemplates\":[52],\"slashUrls\":1,\"childNameFormat\":\"title\",\"compile\":0,\"modified\":1768309013,\"_lazy\":1}'),(52,'training_date',106,0,0,'{\"noChildren\":1,\"parentTemplates\":[51],\"slashUrls\":1,\"compile\":0,\"label\":\"Training Date\",\"modified\":1768316819,\"_lazy\":1}');
 /*!40000 ALTER TABLE `templates` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -766,4 +854,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-13 11:13:52
+-- Dump completed on 2026-01-13 15:29:02

@@ -18,14 +18,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="<?= $config->urls->templates . 'images/favicon-fruitcake-2023.svg' ?>">
     <?php foreach ($config->styles as $file) {
         echo "<link type=\"text/css\" href=\"$file\" rel=\"stylesheet\">";
     } ?>
     <?php if ($page->hasField('seo')):
         echo $page->seo->render();
     else: ?>
-        <title><?php echo $page->title; ?> &ndash; <?= __('Fruitcake') ?></title>
+        <title><?php echo $page->title; ?> &ndash; <?= __('Pilot Project') ?></title>
         <?php if ($modules->isInstalled('LanguageSupportPageNames')):
             foreach ($languages ?? [] as $language) {
                 echo "<link rel=\"alternate\" href=\"{$page->localHttpUrl($language)}\" hreflang=\"$language->subtitle\">";

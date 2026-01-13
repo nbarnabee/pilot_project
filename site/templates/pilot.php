@@ -15,6 +15,7 @@ namespace ProcessWire;
 
 $pilot = $page;
 
+// Get all training_date items that reference the current pilot
 $training_items = $page->references("template=training_date");
 $training_array = [];
 
@@ -25,49 +26,65 @@ if ($training_items->count) {
         $item_data['title'] = $training->title;
         $item_data['date_completed'] = $item->date_completed;
 
+        /**
+         * Data getting and setting in the case of trainings that expire (e.g., most of them)
+         */
         if ($training->expires) {
             $item_data['expires'] = true;
             $today = new \DateTime('now');
+
+            /**
+             * Calculations pertaining to the expiration date
+             */
             $expirationDate = new \DateTime($item->date_completed);
             $expirationDate->modify("+{$training->validity_period} month");
 
-            /*
-             * TO DO: incorporate the "end of month" flag
-             */
+            if ($training->expires_month_end) {
+                $expirationDate->modify('last day of this month');
+            }
 
             if ($today > $expirationDate) {
                 $item_data['days_to_expiration'] = "-";
                 $item_data['status'] = "EXPIRED";
             } else {
-                $item_data['status'] = "GOOD";  // we'll see if it's renewable later
+                $item_data['status'] = "GOOD";  // this will be overwritten if it's renewable
                 $item_data['days_to_expiration'] = "";
-            }
+            };
 
             $item_data['expires_on'] = $expirationDate->format('j.n.Y');
             $item_data['days_to_expiration'] .= $today->diff($expirationDate)->days;
 
+
+            /**
+             * Calculations pertaining to the renewal date
+             */
             $renewalPeriodStart = clone $expirationDate;
 
             if ($training->renewal_period) {
                 $renewalPeriodStart->modify("-{$training->renewal_period} month");
-            }
+            };
+
             $item_data['renew_from'] = $renewalPeriodStart->format('j.n.Y');
 
             if ($today < $expirationDate && $today >= $renewalPeriodStart) {
                 $item_data['status'] = "RENEWABLE";
-            }
-
+            };
         } else {
+
+            /**
+             * Set values in the case of a training that doesn't expires
+             */
             $item_data['status'] = "GOOD";
             $item_data['expires'] = false;
             $item_data['expires_on'] = null;
             $item_data['days_to_expiration'] = null;
             $item_data['renew_from'] = null;
-        }
+        };
 
         $training_array[] = $item_data;
-    }
-}
+    };
+};
+
 ?>
 
 

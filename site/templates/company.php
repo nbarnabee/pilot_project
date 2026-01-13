@@ -21,7 +21,7 @@ $pilots = $page->references("template=pilot");
 <div id="content">
     <ul>
         <?php foreach ($pilots as $pilot) : ?>
-            <li><?= $pilot->title ?></li>
+            <li><a href="<?= $pilot->url ?>"><?= $pilot->title ?></a></li>
         <?php endforeach; ?>
     </ul>
 </div>

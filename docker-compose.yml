@@ -1,0 +1,37 @@
+services:
+  web:
+    image: poljpocket/processwire:dev
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - database
+    volumes:
+      - ./site:/var/www/html/site:rw
+    environment:
+      WEB_USER_ID: 1000
+      WEB_GROUP_ID: 1000
+      APACHE_DOCUMENT_ROOT: /var/www/html
+  database:
+    image: mariadb:10.6
+    ports:
+      - "127.0.0.1:8306:3306"
+    volumes:
+      - database:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - database
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      PMA_USER: docker
+      PMA_PASSWORD: docker
+      PMA_PORT: 3306
+      PMA_HOST: database
+volumes:
+  database:

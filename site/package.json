@@ -1,0 +1,24 @@
+{
+  "name": "processwire-profile-php",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "css": "sass ./templates/styles/main.scss:./templates/styles/main.css",
+    "css-prod": "sass --style compressed --no-source-map ./templates/styles/main.scss:./templates/styles/main.css",
+    "js": "rollup -c rollup.config.mjs",
+    "js-prod": "MINIFY=on rollup -c rollup.config.mjs",
+    "build": "npm run clean && npm run css-prod && npm run js-prod",
+    "clean": "rm -f ./templates/scripts/main.js ./templates/scripts/main.js.map ./templates/styles/main.css ./templates/styles/main.css.map"
+  },
+  "devDependencies": {
+    "rollup": "^4.20.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "modern-css-reset": "^1.4.0",
+    "sass": "^1.77.4",
+    "terser": "^5.31.1",
+    "tiny-slider": "^2.9.4"
+  }
+}

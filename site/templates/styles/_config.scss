@@ -1,0 +1,40 @@
+@use "sass:math";
+@use "sass:color";
+
+$images-path: "../images/";
+
+$fonts-path: "../fonts/";
+
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-weight-heavy: 800;
+$font-weight-black: 900;
+
+$font-size-px: 16;
+
+$header-height: 90px; // placeholder
+
+@function rems($size, $compare-to: $font-size-px) {
+  @return math.div($size * 1rem, $compare-to);
+}
+
+$font-size-small: .75rem;
+$font-size-normal: 1rem;
+$font-size-large: 1.25rem;
+$font-size-extra-large: 1.5rem;
+
+$text-color: #000000;
+$highlight-color: #0000ff;
+
+$background-color: #FFFFFF;
+$background-light-color: #EBEEED;
+$background-extralight-color: #F2F1ED;
+
+$divider-color: #ADAA9E;
+$divider-light-color: #CCCCCC;
+
+$section-margin-block: rems(100);

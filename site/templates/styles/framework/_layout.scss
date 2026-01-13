@@ -1,0 +1,129 @@
+@use "sass:math";
+@use "sass:list";
+@use "sass:map";
+@use "sass:color";
+
+@use "breakpoints";
+@use "grid";
+
+$container-padding-inline: 1rem;
+
+$section-padding-block: 4rem;
+
+$_container-margins: (
+  phone-landscape: auto,
+  tablet-portrait: auto,
+  tablet-landscape: auto,
+  desktop-small: auto,
+  desktop-medium: auto,
+  desktop-large: auto,
+);
+
+$_container-max-widths: (
+  phone-landscape: 460px,
+  tablet-portrait: 720px,
+  tablet-landscape: 920px,
+  desktop-small: 1120px,
+  desktop-medium: 1320px,
+  desktop-large: 1620px,
+);
+
+@function container-margin-inline($breakpoint) {
+  @return map.get($_container-margins, $breakpoint);
+}
+
+@function container-max-width($breakpoint) {
+  @return map.get($_container-max-widths, $breakpoint);
+}
+
+@function global-column-width($breakpoint) {
+  @return math.div(container-max-width($breakpoint), 12);
+}
+
+:root {
+  --global-grid-column-width: calc((100vw - var(--scrollbar-width, 0px)) / 12);
+  @each $breakpoint in breakpoints.$breakpoints {
+    @include breakpoints.ge($breakpoint) {
+      --global-grid-column-width: #{global-column-width($breakpoint)};
+    }
+  }
+}
+
+.container-fluid {
+  padding-inline: $container-padding-inline;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 $container-padding-inline;
+
+  @each $breakpoint in breakpoints.$breakpoints {
+    @include breakpoints.ge($breakpoint) {
+      margin-inline: container-margin-inline($breakpoint);
+      max-width: container-max-width($breakpoint);
+    }
+  }
+
+  &.fluid-left,
+  &.flush-left,
+  &.fluid-right,
+  &.flush-right {
+    @each $breakpoint in breakpoints.$breakpoints {
+      @include breakpoints.ge($breakpoint) {
+        max-width: calc(#{container-max-width($breakpoint)} + ((100% - #{container-max-width($breakpoint)}) / 2));
+      }
+    }
+  }
+
+  &.fluid-left,
+  &.flush-left {
+    margin-inline-start: 0;
+  }
+
+  &.fluid-right,
+  &.flush-right {
+    margin-inline-end: 0;
+  }
+
+  &.flush-left {
+    padding-inline-start: 0;
+  }
+
+  &.flush-right {
+    padding-inline-end: 0;
+  }
+
+  @each $breakpoint in breakpoints.$breakpoints {
+    &.fluid-left-#{$breakpoint},
+    &.flush-left-#{$breakpoint},
+    &.fluid-right-#{$breakpoint},
+    &.flush-right-#{$breakpoint} {
+      @for $index from list.index(breakpoints.$breakpoints, $breakpoint) through list.length(breakpoints.$breakpoints) {
+        $current-bp: list.nth(breakpoints.$breakpoints, $index);
+        @include breakpoints.ge($current-bp) {
+          max-width: calc(#{container-max-width($current-bp)} + ((100% - #{container-max-width($current-bp)}) / 2));
+        }
+      }
+    }
+
+    @include breakpoints.ge($breakpoint) {
+      &.fluid-left-#{$breakpoint},
+      &.flush-left-#{$breakpoint} {
+        margin-inline-start: 0;
+      }
+
+      &.fluid-right-#{$breakpoint},
+      &.flush-right-#{$breakpoint} {
+        margin-inline-end: 0;
+      }
+
+      &.flush-left-#{$breakpoint} {
+        padding-inline-start: 0;
+      }
+
+      &.flush-right-#{$breakpoint} {
+        padding-inline-end: 0;
+      }
+    }
+  }
+}

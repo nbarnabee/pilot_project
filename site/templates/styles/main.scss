@@ -1,0 +1,21 @@
+/*!
+ * Fruitcake Website Styles
+ *
+ * Copyright 2023 Fruitcake W+P AG, Worb
+ * https://fruitcake.ch
+ *
+ * Uses modern CSS reset
+ * https://github.com/hankchizljaw/modern-css-reset
+
+ * Uses tiny slider 2
+ * https://github.com/ganlanyuan/tiny-slider
+ */
+
+@use "../../node_modules/modern-css-reset/dist/reset.css";
+@use "../../node_modules/tiny-slider/src/tiny-slider";
+
+@use "framework/layout";
+@use "framework/breakpoints";
+@use "framework/grid";
+
+@use "modules";

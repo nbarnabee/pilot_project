@@ -1,0 +1,13 @@
+/.idea
+/.vscode
+
+/node_modules
+
+/assets/backups
+/assets/cache
+/assets/logs
+/assets/sessions
+
+/templates/**/*.css
+/templates/**/*.js
+/templates/**/*.map

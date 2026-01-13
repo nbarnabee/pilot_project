@@ -32,6 +32,10 @@ With the database container running,
 - executing the `dbdump.sh` script will dump the database into `database.sql` in the `data` folder.
 - executing the `dbrestore.sh` script will restore the database from `database.sql` in the `data` folder.
 
-## Large files
+## Project notes:
 
-Consider using git LFS for the `/site/assets/files` folder where all the uploads are located.
+- The meat is in "pilot.php"
+
+Elements for refactoring:
+- Split training table from pilot.php into a partial & incorporate into the company view
+- Split logic from pilot.php into a dedicated _functions file
